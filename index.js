@@ -1,21 +1,19 @@
+const connectToMongo = require('./db');
 const express = require('express')
-const ConnectToMongo = require('./db');
+var cors = require('cors') 
 
-var cors = require('cors')
+connectToMongo();
 const app = express()
-// var app = express()
-
-app.use(cors())
-ConnectToMongo();
-
 const port = 5000
 
-app.use(express.json())
+app.use(cors())
+ app.use(express.json())
 
-app.use('/auth', require('./routes/auth'))   //end point for authentication like user login or user creation etc
+// Available Routes
+app.use('/auth', require('./routes/auth'))
 app.use('/notes', require('./routes/notes'))
 
 
 app.listen(port, () => {
-  console.log(`INoteBook Backend listening on port ${port}`)
+  console.log(`iNotebook backend listening at http://localhost:${port}`)
 })
